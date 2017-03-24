@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/home/paul/workspace/.metadata'
+let g:netrw_dirhist_2='/home/paul/workspace/.metadata/.mylyn'
+let g:netrw_dirhist_3='/home/paul/workspace/.metadata/.mylyn/.taskListIndex'
+let g:netrw_dirhist_4='/home/paul'
+let g:netrw_dirhist_5='/home/paul/workspace'
+let g:netrw_dirhist_6='/home/paul/workspace/DS3457_HW02'
+let g:netrw_dirhist_7='/home/paul/workspace/DS3457_HW02/Assignment02_Problem02'
+let g:netrw_dirhist_8='/home/paul/workspace/DS3457_HW02/Assignment02_Problem01'
+let g:netrw_dirhist_9='/home/paul/Desktop/College'
