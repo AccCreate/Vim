@@ -3,6 +3,7 @@ set nocompatible
 filetype off
 
 
+
 set rtp+=~/vimfiles/bundle/Vundle.vim
 let path='~/vimfiles/bundle'
 call vundle#begin('$HOME/vimfiles/bundle/')
@@ -19,10 +20,19 @@ Plugin 'powerline/fonts'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'uguu-org/vim-matrix-screensaver'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'vim-scripts/java.vim'
+Plugin 'xolox/vim-shell'
+Plugin 'xolox/vim-misc'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'w0rp/ale'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 set number
+set relativenumber
 set shiftwidth=4
 autocmd FileType text setlocal autoindent expandtab softtabstop=2 textwidth=76 spell spelllang=en_us
 autocmd FileType help setlocal nospell
@@ -66,15 +76,15 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 
 "airline symbols
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
    
-set background=light
+set background=dark
 colorscheme solarized
 let g:vimwiki_folding='expr'
 set guifont=Droid\ Sans\ Mono\ for\ Powerline:h11 
@@ -96,19 +106,24 @@ let g:ycm_filetype_blacklist = {
       \}
 
 " Buffer switching using Cmd-arrows in Mac and Alt-arrows in Linux
-:nnoremap <D-Right> :bnext<CR>
-:nnoremap <M-Right> :bnext<CR>
-:nnoremap <D-Left> :bprevious<CR>
-:nnoremap <M-Left> :bprevious<CR>
+:nnoremap <D-C-Right> :bnext<CR>
+:nnoremap <M-C-Right> :bnext<CR>
+:nnoremap <D-C-Left> :bprevious<CR>
+:nnoremap <M-C-Left> :bprevious<CR>
 :imap <F2> printf("Testing line number %d", <C-r>=line('.')<CR>);
 
 map  <C-l> :tabn<CR>
 map  <C-h> :tabp<CR>
 map  <C-n> :tabnew<CR>
+map  <C-t> :tabnew<CR>
+"map  <C-S-w> :tabclose<CR>
+map  <C-i> gg=G<CR>
+
 map <F3> :r! date<CR>
 set pastetoggle=<F10>
 map <F5> <Esc>:w<CR>:!clear;python %<CR>
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
-
-
+ab sysout System.out.println("");
+ab teh the
+set guioptions=Ace
