@@ -3,7 +3,6 @@ set nocompatible
 filetype off
 
 
-
 set rtp+=~/vimfiles/bundle/Vundle.vim
 let path='~/vimfiles/bundle'
 call vundle#begin('$HOME/vimfiles/bundle/')
@@ -20,7 +19,6 @@ Plugin 'powerline/fonts'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-scripts/java.vim'
 Plugin 'xolox/vim-shell'
@@ -28,9 +26,10 @@ Plugin 'xolox/vim-misc'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'w0rp/ale'
+Plugin 'Yggdroot/indentLine'
 call vundle#end()            " required
 filetype plugin indent on    " required
-
+let g:EclimCompletionMethod = 'omnifunc'
 set number
 set relativenumber
 set shiftwidth=4
@@ -57,7 +56,7 @@ autocmd VimEnter * silent NERDTree | wincmd p
 let g:airline_theme='base16'
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 
 " unicode symbols
@@ -83,7 +82,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-   
+
 set background=dark
 colorscheme solarized
 let g:vimwiki_folding='expr'
@@ -95,15 +94,15 @@ let g:airline_theme='powerlineish'
 
 " let text files work for youcompleteme
 let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-	  \ 'unite' : 1,
-      \ 'pandoc' : 1,
-      \ 'infolog' : 1,
-      \ 'mail' : 1
-      \}
+            \ 'tagbar' : 1,
+            \ 'qf' : 1,
+            \ 'notes' : 1,
+            \ 'markdown' : 1,
+            \ 'unite' : 1,
+            \ 'pandoc' : 1,
+            \ 'infolog' : 1,
+            \ 'mail' : 1
+            \}
 
 " Buffer switching using Cmd-arrows in Mac and Alt-arrows in Linux
 :nnoremap <D-C-Right> :bnext<CR>
@@ -119,7 +118,8 @@ map  <C-t> :tabnew<CR>
 "map  <C-S-w> :tabclose<CR>
 map  <C-i> gg=G<CR>
 
-map <F3> :r! date<CR>
+
+map <F3> :r! date /t<CR>
 set pastetoggle=<F10>
 map <F5> <Esc>:w<CR>:!clear;python %<CR>
 hi link EasyMotionTarget ErrorMsg
@@ -127,3 +127,29 @@ hi link EasyMotionShade  Comment
 ab sysout System.out.println("");
 ab teh the
 set guioptions=Ace
+set completeopt-=preview
+
+let g:ale_linters = {'java': []}
+
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-e>"
+" this mapping Enter key to <C-y> to chose the current highlight item 
+" and close the selection list, same as other IDEs.
+" CONFLICT with some plugins like tpope/Endwise
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
